@@ -25,7 +25,7 @@ astrodev@email.com
 astrodev123
 
 ## Link do front-end deployado
-https://possible-office.surge.sh
+https://available-scale.surge.sh
 
 ## Link do back-end deployado
 https://labeddit-fs-backend.onrender.com
