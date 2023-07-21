@@ -23,3 +23,11 @@ ciclana123
 astrodev@email.com
 <br>
 astrodev123
+
+## Link do front-end deployado
+https://understood-approval.surge.sh
+
+## Link do back-end deployado
+https://labeddit-fs-backend.onrender.com
+
+https://understood-approval.surge.sh
