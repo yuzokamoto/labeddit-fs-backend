@@ -25,7 +25,7 @@ astrodev@email.com
 astrodev123
 
 ## Link do front-end deployado
-https://understood-approval.surge.sh
+https://possible-office.surge.sh
 
 ## Link do back-end deployado
 https://labeddit-fs-backend.onrender.com
