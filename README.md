@@ -29,5 +29,3 @@ https://understood-approval.surge.sh
 
 ## Link do back-end deployado
 https://labeddit-fs-backend.onrender.com
-
-https://understood-approval.surge.sh
