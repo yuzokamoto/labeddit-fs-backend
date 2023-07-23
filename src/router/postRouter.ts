@@ -20,6 +20,4 @@ const postController = new PostController(
 postRouter.post("/", postController.createPost)
 postRouter.get("/", postController.getPosts)
 postRouter.get("/:id", postController.getPostById)
-postRouter.put("/:id", postController.editPost)
-postRouter.delete("/:id", postController.deletePost)
 postRouter.put("/:id/vote", postController.votePost)

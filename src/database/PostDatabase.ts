@@ -35,13 +35,6 @@ export class PostDatabase extends BaseDatabase {
       .where({ id: postDB.id })
   }
 
-  public deletePost = async (postDB: PostDB): Promise<void> => {
-    await BaseDatabase
-      .connection(PostDatabase.TABLE_POSTS)
-      .delete()
-      .where({ id: postDB.id })
-  }
-
   public findPostVote =
     async (postId: string, userId: string): Promise<PostVoteDB | undefined> => {
       const [postVoteDB]: PostVoteDB[] = await BaseDatabase

@@ -114,7 +114,7 @@ export class Comment {
     public toBusinessModel(): CommentModel {
       return {
         id: this.id,
-        postId: this.id,
+        postId: this.postId,
         content: this.content,
         votesCount: this.votesCount,
         createdAt: this.createdAt,

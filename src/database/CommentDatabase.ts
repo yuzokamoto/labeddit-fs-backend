@@ -36,13 +36,6 @@ export class CommentDatabase extends BaseDatabase {
       .where({ id: commentDB.id })
   }
 
-  public deleteComment = async (commentDB: CommentDB): Promise<void> => {
-    await BaseDatabase
-      .connection(CommentDatabase.TABLE_COMMENTS)
-      .delete()
-      .where({ id: commentDB.id })
-  }
-
   public findCommentVote =
     async (commentId: string, userId: string): Promise<CommentVoteDB | undefined> => {
       const [commentVoteDB]: CommentVoteDB[] = await BaseDatabase

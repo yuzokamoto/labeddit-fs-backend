@@ -2,11 +2,8 @@ import { CommentDatabase } from "../database/CommentDatabase"
 import { PostDatabase } from "../database/PostDatabase"
 import { UserDatabase } from "../database/UserDatabase"
 import { CreateCommentInputDTO, CreateCommentOutputDTO } from "../dtos/comment/createComment.dto"
-import { DeleteCommentInputDTO, DeleteCommentOutputDTO } from "../dtos/comment/deleteComment.dto"
-import { EditCommentInputDTO, EditCommentOutputDTO } from "../dtos/comment/editComment.dto"
 import { GetCommentsInputDTO, GetCommentsOutputDTO } from "../dtos/comment/getComments.dto"
 import { VoteCommentInputDTO, VoteCommentOutputDTO } from "../dtos/comment/voteComment.dto"
-import { ForbiddenError } from "../errors/ForbiddenError"
 import { NotFoundError } from "../errors/NotFoundError"
 import { UnauthorizedError } from "../errors/UnauthorizedError"
 import { Comment, CommentModel } from "../models/Comment"
@@ -101,103 +98,6 @@ export class CommentBusiness {
       }
 
       const output: GetCommentsOutputDTO = commentsModel
-      return output
-  }
-
-  public editComment = 
-    async (input: EditCommentInputDTO): Promise<EditCommentOutputDTO> => {
-  
-      const { token, content, commentId } = input
-
-      const payload = this.tokenManager.getPayload(token)
-      if (!payload) {
-        throw new UnauthorizedError("token inválido")
-      }
-
-      const commentDB = await this.commentDatabase.findById(commentId)
-
-      if (!commentDB) {
-        throw new NotFoundError("id não existe")
-      }
-
-      if (payload.id !== commentDB.creator_id) {
-        throw new ForbiddenError("somente quem criou o comment pode editá-lo")
-      }
-
-      const userDB = await this.userDatabase.findById(commentDB.creator_id)
-
-      const comment = new Comment(
-        commentDB.id,
-        commentDB.post_id,
-        commentDB.content,
-        commentDB.votes_count,
-        commentDB.created_at,
-        commentDB.creator_id,
-        userDB.nickname
-      )
-
-      comment.setContent(content)
-
-      await this.commentDatabase.updateComment(comment.toDBModel())
-
-      const output: EditCommentOutputDTO = undefined
-      return output
-  }
-
-  public deleteComment = 
-    async (input: DeleteCommentInputDTO): Promise<DeleteCommentOutputDTO> => {
-  
-      const { token, commentId } = input
-
-      const payload = this.tokenManager.getPayload(token)
-      if (!payload) {
-        throw new UnauthorizedError("token inválido")
-      }
-
-      const commentDB = await this.commentDatabase.findById(commentId)
-
-      if (!commentDB) {
-        throw new NotFoundError("id não existe")
-      }
-
-      if (payload.id !== commentDB.creator_id) {
-        throw new ForbiddenError("somente quem criou o comment pode deletá-lo")
-      }
-
-      const userDB = await this.userDatabase.findById(commentDB.creator_id)
-
-      const comment = new Comment(
-        commentDB.id,
-        commentDB.post_id,
-        commentDB.content,
-        commentDB.votes_count,
-        commentDB.created_at,
-        commentDB.creator_id,
-        userDB.nickname
-      )
-
-      await this.commentDatabase.deleteComment(comment.toDBModel())
-
-      const postDB = await this.postDatabase.findById(comment.getPostId())
-
-      if (!postDB) {
-        throw new NotFoundError("post com essa id não existe")
-      }
-
-      const post = new Post(
-        postDB.id,
-        postDB.content,
-        postDB.votes_count,
-        postDB.comments_count,
-        postDB.created_at,
-        postDB.creator_id,
-        payload.nickname
-      )
-
-      post.decreaseCommentsCount()
-      await this.postDatabase.updatePost(post.toDBModel())
-
-      const output: DeleteCommentOutputDTO = undefined
       return output
   }
 
