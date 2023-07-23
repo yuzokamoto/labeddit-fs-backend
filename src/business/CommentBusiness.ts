@@ -50,6 +50,8 @@ export class CommentBusiness {
 
       await this.commentDatabase.insertComment(comment.toDBModel())
 
+      const creatorDB = await this.userDatabase.findById(postDB.creator_id)
+
       const post = new Post(
         postDB.id,
         postDB.content,
@@ -57,7 +59,7 @@ export class CommentBusiness {
         postDB.comments_count,
         postDB.created_at,
         postDB.creator_id,
-        payload.nickname
+        creatorDB.nickname
       )
 
       post.increaseCommentsCount()
